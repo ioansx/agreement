@@ -1,0 +1,13 @@
+[package]
+name = "agreement"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde.workspace = true
+
+axum = "0.7.9"
+serde_json = "1.0.134"
+tokio = { version = "1.42.0", features = ["full"] }
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
