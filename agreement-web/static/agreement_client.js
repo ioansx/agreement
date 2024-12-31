@@ -201,7 +201,7 @@ function __wbg_adapter_18(arg0, arg1, arg2) {
     wasm.closure8_externref_shim(arg0, arg1, arg2);
 }
 
-function __wbg_adapter_50(arg0, arg1, arg2, arg3) {
+function __wbg_adapter_51(arg0, arg1, arg2, arg3) {
     wasm.closure29_externref_shim(arg0, arg1, arg2, arg3);
 }
 
@@ -224,11 +224,17 @@ export class AgreementClient {
         const ptr = this.__destroy_into_raw();
         wasm.__wbg_agreementclient_free(ptr, 0);
     }
+    constructor() {
+        const ret = wasm.agreementclient_new();
+        this.__wbg_ptr = ret >>> 0;
+        AgreementClientFinalization.register(this, this.__wbg_ptr, this);
+        return this;
+    }
     /**
      * @returns {Promise<any>}
      */
-    static root() {
-        const ret = wasm.agreementclient_root();
+    root() {
+        const ret = wasm.agreementclient_root(this.__wbg_ptr);
         return ret;
     }
 }
@@ -314,7 +320,7 @@ function __wbg_get_imports() {
                 const a = state0.a;
                 state0.a = 0;
                 try {
-                    return __wbg_adapter_50(a, state0.b, arg0, arg1);
+                    return __wbg_adapter_51(a, state0.b, arg0, arg1);
                 } finally {
                     state0.a = a;
                 }
@@ -390,7 +396,7 @@ function __wbg_get_imports() {
         const ret = false;
         return ret;
     };
-    imports.wbg.__wbindgen_closure_wrapper156 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper159 = function(arg0, arg1, arg2) {
         const ret = makeMutClosure(arg0, arg1, 9, __wbg_adapter_18);
         return ret;
     };

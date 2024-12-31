@@ -1,6 +1,10 @@
-// import init from "/static/agreement_client_bg.js";
-//
-// await init();
+import init, { AgreementClient } from "/static/agreement_client.js";
+
+await init();
+
+const client = new AgreementClient(window.location.host);
+const response = await client.root();
+console.log(response);
 
 // const EL_PARSING_IN = "parsing-in";
 // const EL_PARSING_OUT = "parsing-out";
