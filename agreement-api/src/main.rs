@@ -1,48 +1,30 @@
-use agreement::error::ErrKind;
-use axum::{
-    http::StatusCode,
-    routing::{get, post},
-    Json, Router,
+use agreement::{
+    error::{ErKind, Eresult},
+    newer, routes,
 };
-use serde::{Deserialize, Serialize};
-
-use agreement::new_err;
+use axum::{
+    routing::{get, post},
+    Router,
+};
+use tracing::error;
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Eresult<()> {
     tracing_subscriber::fmt::init();
 
     let app = Router::new()
-        .route("/", get(root))
-        .route("/users", post(create_user));
+        .route("/", get(routes::root::route))
+        .route("/users", post(routes::user_create::route));
 
-    let e = new_err!(ErrKind::bare("smth"));
-    println!("{:?}", e);
+    let port = std::env::var("PORT").unwrap_or("3000".to_string());
+    let addr = format!("0.0.0.0:{}", port);
+    let listener = tokio::net::TcpListener::bind(addr)
+        .await
+        .map_err(|e| newer!(e, ErKind::internal("unable to bind address")))?;
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
-}
+    if let Err(e) = axum::serve(listener, app).await {
+        error!("{}", e);
+    }
 
-async fn root() -> &'static str {
-    "Hello, World!"
-}
-
-async fn create_user(Json(payload): Json<CreateUser>) -> (StatusCode, Json<User>) {
-    let user = User {
-        id: 1337,
-        username: payload.username,
-    };
-
-    (StatusCode::CREATED, Json(user))
-}
-
-#[derive(Deserialize)]
-struct CreateUser {
-    username: String,
-}
-
-#[derive(Serialize)]
-struct User {
-    id: u64,
-    username: String,
+    Ok(())
 }

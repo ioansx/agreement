@@ -1,35 +1,37 @@
 use std::{backtrace::Backtrace, fmt::Display};
 
+pub type Eresult<T> = Result<T, Er>;
+
 #[derive(Debug)]
-pub struct Error {
-    pub knd: ErrKind,
+pub struct Er {
+    pub knd: ErKind,
     pub src: Option<Box<dyn std::error::Error>>,
     pub bkt: Backtrace,
 }
 
-impl Display for Error {
+impl Display for Er {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.knd)
     }
 }
 
-impl std::error::Error for Error {
+impl std::error::Error for Er {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         self.src.as_ref().map(|v| &**v)
     }
 }
 
 #[macro_export]
-macro_rules! new_err {
+macro_rules! newer {
     ( $knd:expr ) => {{
-        $crate::error::Error {
+        $crate::error::Er {
             knd: $knd,
             src: None,
             bkt: std::backtrace::Backtrace::force_capture(),
         }
     }};
-    ( $knd:expr, $src:expr ) => {{
-        $crate::error::Error {
+    ( $src:expr, $knd:expr ) => {{
+        $crate::error::Er {
             knd: $knd,
             src: Some(Box::new($src)),
             bkt: std::backtrace::Backtrace::force_capture(),
@@ -38,21 +40,21 @@ macro_rules! new_err {
 }
 
 #[derive(Debug)]
-pub enum ErrKind {
-    Bare(String),
+pub enum ErKind {
+    Internal(String),
 }
 
-impl ErrKind {
-    pub fn bare(msg: impl Into<String>) -> ErrKind {
-        ErrKind::Bare(msg.into())
+impl ErKind {
+    pub fn internal(msg: impl Into<String>) -> ErKind {
+        ErKind::Internal(msg.into())
     }
 }
 
-impl Display for ErrKind {
+impl Display for ErKind {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ErrKind::Bare(msg) => {
-                write!(f, "{msg}")
+            ErKind::Internal(msg) => {
+                write!(f, "{}", msg)
             }
         }
     }
