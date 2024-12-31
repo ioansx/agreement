@@ -1,13 +1,11 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
-use agreement_web::{
+use agreement_models::{
     error::{ErKind, Eresult},
-    newer, routes,
+    newer,
 };
-use axum::{
-    routing::{get, post},
-    Router,
-};
+use agreement_web::routes;
+use axum::Router;
 use tower::ServiceBuilder;
 use tower_http::{
     services::ServeDir,
@@ -26,8 +24,7 @@ async fn main() -> Eresult<()> {
     );
 
     let app = Router::new()
-        .route("/", get(routes::index::route))
-        .route("/users", post(routes::user_create::route))
+        .merge(routes::router())
         .nest_service("/static", ServeDir::new("static"))
         .layer(middleware);
 

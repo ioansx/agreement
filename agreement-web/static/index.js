@@ -1,8 +1,12 @@
-import init, { AgreementClient } from "/static/agreement_client.js";
+import init, { AgreementClient, CreateUser } from "/static/agreement_client.js";
 
 await init();
 
-const client = new AgreementClient(window.location.host);
+let user = new CreateUser("first");
+user.username = "smth";
+console.log(user);
+
+const client = new AgreementClient(window.location.origin);
 const response = await client.root();
 console.log(response);
 

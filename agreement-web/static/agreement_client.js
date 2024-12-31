@@ -224,8 +224,13 @@ export class AgreementClient {
         const ptr = this.__destroy_into_raw();
         wasm.__wbg_agreementclient_free(ptr, 0);
     }
-    constructor() {
-        const ret = wasm.agreementclient_new();
+    /**
+     * @param {string} addr
+     */
+    constructor(addr) {
+        const ptr0 = passStringToWasm0(addr, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.agreementclient_new(ptr0, len0);
         this.__wbg_ptr = ret >>> 0;
         AgreementClientFinalization.register(this, this.__wbg_ptr, this);
         return this;
@@ -236,6 +241,59 @@ export class AgreementClient {
     root() {
         const ret = wasm.agreementclient_root(this.__wbg_ptr);
         return ret;
+    }
+}
+
+const CreateUserFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_createuser_free(ptr >>> 0, 1));
+
+export class CreateUser {
+
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        CreateUserFinalization.unregister(this);
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_createuser_free(ptr, 0);
+    }
+    /**
+     * @returns {string}
+     */
+    get username() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.__wbg_get_createuser_username(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @param {string} arg0
+     */
+    set username(arg0) {
+        const ptr0 = passStringToWasm0(arg0, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.__wbg_set_createuser_username(this.__wbg_ptr, ptr0, len0);
+    }
+    /**
+     * @param {string} username
+     */
+    constructor(username) {
+        const ptr0 = passStringToWasm0(username, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.createuser_new(ptr0, len0);
+        this.__wbg_ptr = ret >>> 0;
+        CreateUserFinalization.register(this, this.__wbg_ptr, this);
+        return this;
     }
 }
 

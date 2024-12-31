@@ -21,6 +21,7 @@ checksum = "512761e0bb2578dd7380c6baaa0f4ce03e84f95e960231d1dec8bf4d7d6e2627"
 name = "agreement-client"
 version = "0.1.0"
 dependencies = [
+ "agreement-models",
  "js-sys",
  "wasm-bindgen",
  "wasm-bindgen-futures",
@@ -28,9 +29,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "agreement-models"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "agreement-web"
 version = "0.1.0"
 dependencies = [
+ "agreement-models",
  "askama",
  "askama_axum",
  "axum",
