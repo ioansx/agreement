@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/missing.css@1.1.3" />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link
+      rel="modulepreload"
+      href="/static/agreement_client.js"
+      type="module"
+    />
+    <script src="/static/index.js" type="module"></script>
+    <title>Agreement</title>
+  </head>
+
+  <body>
+    <header class="navbar justify-content:space-evenly" data-overflow-nav>
+      <a class="base__logo" href="/">
+        <h1>Agreement</h1>
+      </a>
+    </header>
+    <main>
+      {% block content %}
+      <p>Content not loaded! This is an error.</p>
+      {% endblock %}
+    </main>
+    <footer>
+      <a href="https://github.com/ioansx/agreement">GITHUB</a>
+    </footer>
+  </body>
+</html>

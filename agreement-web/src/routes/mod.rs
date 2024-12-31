@@ -1,2 +1,2 @@
-pub mod root;
+pub mod index;
 pub mod user_create;
