@@ -1,13 +1,19 @@
-import init, { AgreementClient, CreateUser } from "/static/agreement_client.js";
+import init, {
+  AgreementClient,
+  CreateThingIndto,
+  CreateThingOutdto,
+} from "/static/agreement_client.js";
 
 await init();
 
-let user = new CreateUser("first");
-user.username = "smth";
-console.log(user);
+let thing = new CreateThingIndto("first");
+thing.name = "smth";
+console.log(thing);
+
+console.log(CreateThingOutdto);
 
 const client = new AgreementClient(window.location.origin);
-const response = await client.root();
+const response = await client.create_thing(thing);
 console.log(response);
 
 // const EL_PARSING_IN = "parsing-in";

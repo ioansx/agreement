@@ -1,8 +1,13 @@
-use axum::{routing::get, Router};
+use axum::{
+    routing::{get, post},
+    Router,
+};
 
 pub mod index;
-pub mod user_create;
+pub mod thing_create;
 
 pub fn router() -> Router {
-    Router::new().route("/", get(index::route))
+    Router::new()
+        .route("/", get(index::route))
+        .route("/things", post(thing_create::route))
 }

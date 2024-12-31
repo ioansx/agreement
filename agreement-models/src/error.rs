@@ -1,5 +1,7 @@
 use std::{backtrace::Backtrace, fmt::Display};
 
+use wasm_bindgen::convert::IntoWasmAbi;
+
 pub type Eresult<T> = Result<T, Er>;
 
 #[derive(Debug)]
@@ -20,6 +22,14 @@ impl std::error::Error for Er {
         self.src.as_ref().map(|v| &**v)
     }
 }
+
+// impl IntoWasmAbi for Er {
+//     type Abi;
+//
+//     fn into_abi(self) -> Self::Abi {
+//         todo!()
+//     }
+// }
 
 #[macro_export]
 macro_rules! newer {
