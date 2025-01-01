@@ -35,10 +35,12 @@ impl IntoResponse for Er {
         };
 
         let body = ErOutdto {
-            id: "some id".to_string(),
+            id: agreement_common::agreement_id(),
             msg: self.knd.to_string(),
         };
-        let body_ser = serde_json::to_vec(&body).expect("error can always be serialized");
+        let body_ser = serde_json::to_vec(&body).expect("body can always be serialized");
+
+        // TODO: log error chain
 
         Response::builder()
             .status(status_code)

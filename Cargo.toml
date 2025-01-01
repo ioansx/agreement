@@ -1,5 +1,10 @@
 [workspace]
-members = ["agreement-client", "agreement-models", "agreement-web"]
+members = [
+    "agreement-client",
+    "agreement-common",
+    "agreement-models",
+    "agreement-web",
+]
 resolver = "2"
 
 [workspace.dependencies]
