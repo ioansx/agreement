@@ -7,8 +7,7 @@ import init, {
 await init();
 
 let thing = new CreateThingIndto("first");
-thing.name = "smth";
-console.table(thing);
+thing.name = "error";
 
 const client = new AgreementClient(window.location.origin);
 const response = await client.create_thing(thing);
