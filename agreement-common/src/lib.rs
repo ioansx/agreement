@@ -1,8 +1,6 @@
-pub fn agreement_id() -> String {
-    use rand::Rng;
-    rand::thread_rng()
-        .sample_iter(&rand::distributions::Alphanumeric)
-        .take(24)
-        .map(char::from)
-        .collect()
-}
+pub mod error;
+
+mod id_generation;
+
+pub use id_generation::agreement_id;
+

@@ -1,9 +1,11 @@
-use agreement_models::{error::ErKind, newer};
+use agreement_common::error::ErKind;
 use askama::Template;
 use axum::{
     http::header,
     response::{IntoResponse, Response},
 };
+
+use crate::newer;
 
 #[derive(Template)]
 #[template(path = "index.html")]

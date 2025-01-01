@@ -1,10 +1,7 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
-use agreement_models::{
-    error::{ErKind, Eresult},
-    newer,
-};
-use agreement_web::routes;
+use agreement_common::error::ErKind;
+use agreement_web::{error::Ersult, newer, routes};
 use axum::Router;
 use tower::ServiceBuilder;
 use tower_http::{
@@ -15,7 +12,7 @@ use tower_http::{
 use tracing::{error, info};
 
 #[tokio::main]
-async fn main() -> Eresult<()> {
+async fn main() -> Ersult<()> {
     tracing_subscriber::fmt::init();
 
     let middleware = ServiceBuilder::new().layer(
