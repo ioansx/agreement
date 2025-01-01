@@ -6,13 +6,13 @@ edition = "2021"
 [dependencies]
 agreement-models = { path = "../agreement-models" }
 
+axum.workspace = true
 serde.workspace = true
+serde_json.workspace = true
 
 askama = "0.12.1"
 askama_axum = "0.4.0"
-axum = "0.7.9"
-axum-extra = "0.9.6"
-serde_json = "1.0.134"
+axum-extra = "0.10.0"
 tokio = { version = "1.42.0", features = ["full"] }
 tower = { version = "0.5.2", features = ["util"] }
 tower-http = { version = "0.6.2", features = ["fs", "trace"] }

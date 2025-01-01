@@ -1,6 +1,11 @@
 use std::{backtrace::Backtrace, fmt::Display};
 
-use wasm_bindgen::convert::IntoWasmAbi;
+use axum::{
+    http::{header, StatusCode},
+    response::{IntoResponse, Response},
+};
+
+use crate::outdto::ErOutdto;
 
 pub type Eresult<T> = Result<T, Er>;
 
@@ -23,13 +28,28 @@ impl std::error::Error for Er {
     }
 }
 
-// impl IntoWasmAbi for Er {
-//     type Abi;
-//
-//     fn into_abi(self) -> Self::Abi {
-//         todo!()
-//     }
-// }
+impl IntoResponse for Er {
+    fn into_response(self) -> axum::response::Response {
+        let status_code = match &self.knd {
+            ErKind::Internal(_) => StatusCode::INTERNAL_SERVER_ERROR,
+        };
+
+        let body = ErOutdto {
+            id: "some id".to_string(),
+            msg: self.knd.to_string(),
+        };
+        let body_ser = serde_json::to_vec(&body).expect("error can always be serialized");
+
+        Response::builder()
+            .status(status_code)
+            .header(
+                header::CONTENT_TYPE,
+                header::HeaderValue::from_static("application/json"),
+            )
+            .body(body_ser.into())
+            .expect("error response can always be built")
+    }
+}
 
 #[macro_export]
 macro_rules! newer {

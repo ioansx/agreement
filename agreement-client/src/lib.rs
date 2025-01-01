@@ -26,7 +26,7 @@ impl AgreementClient {
         let opts = RequestInit::new();
         opts.set_method("POST");
         opts.set_mode(RequestMode::SameOrigin);
-        opts.set_body(&serde_wasm_bindgen::to_value(&indto).unwrap());
+        opts.set_body(&serde_json::to_string(&indto).unwrap().into());
 
         let addr = format!("{}/things", self.addr);
         let request = Request::new_with_str_and_init(&addr, &opts)?;
@@ -42,8 +42,9 @@ impl AgreementClient {
         let resp: Response = resp_value.dyn_into().unwrap();
 
         let json = JsFuture::from(resp.json()?).await?;
-        let value = serde_wasm_bindgen::from_value(json).unwrap();
-        Ok(value)
+        let outdto = serde_wasm_bindgen::from_value(json).unwrap();
+        // let value = json.into();
+        Ok(outdto)
     }
 
     // pub async fn root(&self) -> Result<JsValue, JsValue> {

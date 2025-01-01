@@ -9,12 +9,14 @@ crate-type = ["cdylib"]
 [dependencies]
 agreement-models = { path = "../agreement-models" }
 
+serde_json.workspace = true
 wasm-bindgen.workspace = true
 
 js-sys = "0.3.76"
 serde-wasm-bindgen = "0.6.5"
 wasm-bindgen-futures = "0.4.49"
 web-sys = { version = "0.3.76", features = [
+    "console",
     "Headers",
     "Request",
     "RequestInit",

@@ -8,9 +8,7 @@ await init();
 
 let thing = new CreateThingIndto("first");
 thing.name = "smth";
-console.log(thing);
-
-console.log(CreateThingOutdto);
+console.table(thing);
 
 const client = new AgreementClient(window.location.origin);
 const response = await client.create_thing(thing);
