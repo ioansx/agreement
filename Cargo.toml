@@ -4,6 +4,7 @@ members = [
     "agreement-common",
     "agreement-models",
     "agreement-web",
+    "unladeapi",
 ]
 resolver = "2"
 

@@ -1,4 +1,6 @@
+use agreement_common::agreement_id;
 use serde::{Deserialize, Serialize};
+use unladeapi::error::UnladeError;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen(getter_with_clone)]
@@ -6,4 +8,13 @@ use wasm_bindgen::prelude::wasm_bindgen;
 pub struct ErrorOutdto {
     pub id: String,
     pub msg: String,
+}
+
+impl From<UnladeError> for ErrorOutdto {
+    fn from(value: UnladeError) -> Self {
+        Self {
+            id: agreement_id(),
+            msg: value.msg,
+        }
+    }
 }

@@ -4,5 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+agreement-common = { path = "../agreement-common" }
+unladeapi = { path = "../unladeapi" }
+
 serde.workspace = true
 wasm-bindgen.workspace = true
