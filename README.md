@@ -1,6 +1,7 @@
 # agreement
 
-This project aims to generate an API client for a backend API using WASM.
+Unlade the responsibility of synchronizing with a backend API.
+Generate clients for a backend APIs using WASM.
 
 Goals:
 - auto-generated WASM client;
