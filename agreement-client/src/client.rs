@@ -2,7 +2,7 @@ use agreement_models::{
     indto::CreateThingIndto,
     outdto::{CreateThingOutdto, ErrorOutdto},
 };
-use unladeapi::client::{HttpUnlader, Unlader};
+use unladeapi::{HttpUnlader, Unlader};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
