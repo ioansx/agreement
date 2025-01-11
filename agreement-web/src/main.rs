@@ -1,9 +1,13 @@
-use std::net::{Ipv4Addr, SocketAddr};
+use std::{
+    net::{Ipv4Addr, SocketAddr},
+    sync::Arc,
+};
 
 use agreement_common::{error::Er, newer};
 use agreement_web::{
     error::{AgEr, AgResult},
     routes,
+    state::ArState,
 };
 use axum::Router;
 use tower::ServiceBuilder;
@@ -23,10 +27,13 @@ async fn main() -> AgResult<()> {
             .on_response(DefaultOnResponse::new().latency_unit(LatencyUnit::Micros)),
     );
 
+    let state = ArState::new();
+
     let app = Router::new()
         .merge(routes::router())
         .nest_service("/static", ServeDir::new("static"))
-        .layer(middleware);
+        .layer(middleware)
+        .with_state(Arc::new(state));
 
     let port = std::env::var("PORT").unwrap_or_else(|_| "80".to_string());
     let port: u16 = port.parse().unwrap_or_else(|e| {

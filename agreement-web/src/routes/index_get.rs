@@ -11,7 +11,6 @@ use crate::error::AgEr;
 #[template(path = "index.html")]
 struct IndexTemplate;
 
-#[axum::debug_handler]
 pub async fn route() -> impl IntoResponse {
     let value = IndexTemplate
         .render()

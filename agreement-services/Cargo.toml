@@ -1,0 +1,8 @@
+[package]
+name = "agreement-services"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+agreement-common = { path = "../agreement-common" }
+agreement-models = { path = "../agreement-models" }
