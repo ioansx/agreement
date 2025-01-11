@@ -1,7 +1,10 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
-use agreement_common::error::ErKind;
-use agreement_web::{error::Ersult, newer, routes};
+use agreement_common::{error::Er, newer};
+use agreement_web::{
+    error::{AgEr, AgResult},
+    routes,
+};
 use axum::Router;
 use tower::ServiceBuilder;
 use tower_http::{
@@ -12,7 +15,7 @@ use tower_http::{
 use tracing::{error, info};
 
 #[tokio::main]
-async fn main() -> Ersult<()> {
+async fn main() -> AgResult<()> {
     tracing_subscriber::fmt::init();
 
     let middleware = ServiceBuilder::new().layer(
@@ -33,7 +36,7 @@ async fn main() -> Ersult<()> {
     let addr = SocketAddr::from((Ipv4Addr::UNSPECIFIED, port));
     let listener = tokio::net::TcpListener::bind(&addr)
         .await
-        .map_err(|e| newer!(e, ErKind::internal("unable to bind address")))?;
+        .map_err(|e| AgEr(newer!(e, Er::internal("unable to bind address"))))?;
 
     info!("Listening at {}", addr);
     if let Err(e) = axum::serve(listener, app).await {
