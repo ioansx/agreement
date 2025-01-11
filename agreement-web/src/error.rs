@@ -8,24 +8,24 @@ use axum::{
 };
 use tracing::{error, warn};
 
-pub type AgResult<T> = Result<T, AgEr>;
+pub type AResult<T> = Result<T, AEr>;
 
 #[derive(Debug)]
-pub struct AgEr(pub agreement_common::error::ErWrap);
+pub struct AEr(pub agreement_common::error::ErWrap);
 
-impl Display for AgEr {
+impl Display for AEr {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.0)
     }
 }
 
-impl std::error::Error for AgEr {
+impl std::error::Error for AEr {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         self.0.src.as_ref().map(|v| &**v)
     }
 }
 
-impl IntoResponse for AgEr {
+impl IntoResponse for AEr {
     fn into_response(self) -> axum::response::Response {
         let Self(err) = self;
 

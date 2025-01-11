@@ -6,3 +6,6 @@ edition = "2021"
 [dependencies]
 agreement-common = { path = "../agreement-common" }
 agreement-models = { path = "../agreement-models" }
+
+tokio.workspace = true
+tracing.workspace = true

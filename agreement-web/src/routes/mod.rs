@@ -5,13 +5,13 @@ use axum::{
     Router,
 };
 
-use crate::state::ArState;
+use crate::state::AState;
 
 pub mod index_get;
 pub mod man_get;
 pub mod thing_create;
 
-pub fn router() -> Router<Arc<ArState>> {
+pub fn router() -> Router<Arc<AState>> {
     Router::new()
         .route("/", get(index_get::route))
         .route("/man", get(man_get::route))

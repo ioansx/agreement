@@ -8,11 +8,3 @@ pub struct CreateThingOutdto {
     pub name: String,
     pub opt_prop: Option<u64>,
 }
-
-#[wasm_bindgen]
-impl CreateThingOutdto {
-    #[wasm_bindgen(constructor)]
-    pub fn new(id: String, name: String, opt_prop: Option<u64>) -> Self {
-        CreateThingOutdto { id, name, opt_prop }
-    }
-}

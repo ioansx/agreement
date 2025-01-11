@@ -1,10 +1,14 @@
+use std::sync::Arc;
+
 use agreement_services::Services;
 
-pub struct ArState {
+pub type ArcState = Arc<AState>;
+
+pub struct AState {
     pub services: Services,
 }
 
-impl ArState {
+impl AState {
     pub fn new() -> Self {
         Self {
             services: Services::new(),

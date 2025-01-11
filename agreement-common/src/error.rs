@@ -1,5 +1,7 @@
 use std::{backtrace::Backtrace, fmt::Display};
 
+pub type ErResult<T> = Result<T, ErWrap>;
+
 #[derive(Debug)]
 pub struct ErWrap {
     pub knd: Er,

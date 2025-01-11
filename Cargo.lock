@@ -51,6 +51,8 @@ version = "0.1.0"
 dependencies = [
  "agreement-common",
  "agreement-models",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]
