@@ -7,9 +7,11 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
+agreement-business = { path = "../agreement-business" }
 agreement-models = { path = "../agreement-models" }
 unlader = { path = "../unlader" }
 
-getrandom = { version = "0.2", features = ["js"] }
 wasm-bindgen.workspace = true
+
+getrandom = { version = "0.2", features = ["js"] }
 wasm-bindgen-futures = "0.4.49"

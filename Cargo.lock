@@ -32,6 +32,7 @@ dependencies = [
 name = "agreement-client"
 version = "0.1.0"
 dependencies = [
+ "agreement-business",
  "agreement-models",
  "getrandom",
  "unlader",

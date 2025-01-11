@@ -1,5 +1,5 @@
 use agreement_common::{
-    error::{Er, ErResult},
+    error::{Err, ErrResult},
     newer,
 };
 use agreement_models::{custom::DateTimeUtc, indto::ManGetIndto, outdto::ManGetOutdto};
@@ -11,7 +11,7 @@ impl ManService {
         Self {}
     }
 
-    pub async fn generate_man_page(&self, indto: ManGetIndto) -> ErResult<ManGetOutdto> {
+    pub async fn generate_man_page(&self, indto: ManGetIndto) -> ErrResult<ManGetOutdto> {
         let force_non_localized_man_pages = "-o";
         let pager_option = "-P";
         let pager_as_cat = "cat";
@@ -24,14 +24,14 @@ impl ManService {
             ])
             .output()
             .await
-            .map_err(|e| newer!(e, Er::internal("unable to generate man page")))?;
+            .map_err(|e| newer!(e, Err::internal("unable to generate man page")))?;
 
         if !output.status.success() {
-            return Err(newer!(Er::internal("unable to generate man page")));
+            return Err(newer!(Err::internal("unable to generate man page")));
         }
 
         let output_str = String::from_utf8(output.stdout)
-            .map_err(|e| newer!(e, Er::internal("invalid man page output")))?;
+            .map_err(|e| newer!(e, Err::internal("invalid man page output")))?;
 
         Ok(ManGetOutdto {
             generated_at: DateTimeUtc::now(),
