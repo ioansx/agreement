@@ -7,5 +7,6 @@ edition = "2021"
 agreement-common = { path = "../agreement-common" }
 unlader = { path = "../unlader" }
 
+chrono.workspace = true
 serde.workspace = true
 wasm-bindgen.workspace = true

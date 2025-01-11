@@ -1,5 +1,5 @@
 [package]
-name = "agreement-services"
+name = "agreement-business"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,5 +7,6 @@ edition = "2021"
 agreement-common = { path = "../agreement-common" }
 agreement-models = { path = "../agreement-models" }
 
+chrono.workspace = true
 tokio.workspace = true
 tracing.workspace = true

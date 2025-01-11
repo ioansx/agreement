@@ -1,4 +1,4 @@
-pub mod man_service;
+mod man_service;
 
 pub use man_service::ManService;
 

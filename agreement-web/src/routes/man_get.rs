@@ -9,12 +9,15 @@ use crate::{
 pub async fn route(
     State(state): State<ArcState>,
     Json(indto): Json<ManGetIndto>,
-) -> AResult<ManGetOutdto> {
+) -> AResult<Json<ManGetOutdto>> {
     // TODO: validation
-    state
+
+    let outdto = state
         .services
         .man
         .generate_man_page(indto)
         .await
-        .map_err(|e| AEr(e))
+        .map_err(|e| AEr(e))?;
+
+    Ok(Json(outdto))
 }

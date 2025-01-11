@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+agreement-business = { path = "../agreement-business" }
 agreement-common = { path = "../agreement-common" }
 agreement-models = { path = "../agreement-models" }
-agreement-services = { path = "../agreement-services" }
 
 serde.workspace = true
 serde_json.workspace = true

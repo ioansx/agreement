@@ -2,7 +2,7 @@ use agreement_common::{
     error::{Er, ErResult},
     newer,
 };
-use agreement_models::{indto::ManGetIndto, outdto::ManGetOutdto};
+use agreement_models::{custom::DateTimeUtc, indto::ManGetIndto, outdto::ManGetOutdto};
 
 pub struct ManService {}
 
@@ -33,6 +33,9 @@ impl ManService {
         let output_str = String::from_utf8(output.stdout)
             .map_err(|e| newer!(e, Er::internal("invalid man page output")))?;
 
-        Ok(ManGetOutdto { output: output_str })
+        Ok(ManGetOutdto {
+            generated_at: DateTimeUtc::now(),
+            output: output_str,
+        })
     }
 }
