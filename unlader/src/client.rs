@@ -24,6 +24,10 @@ impl Unlader {
     pub fn new(addr: String) -> Self {
         Self { addr }
     }
+
+    pub async fn get(&self, path: &str) -> Result<JsValue, UnladeError> {
+        todo!()
+    }
 }
 
 impl HttpUnlader for Unlader {

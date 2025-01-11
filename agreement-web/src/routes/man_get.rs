@@ -1,25 +1,28 @@
-use agreement_models::{indto::ManGetIndto, outdto::ManGetOutdto};
-use axum::{extract::State, Json};
+use agreement_models::outdto::ManGetOutdto;
+use axum::{
+    extract::{Query, State},
+    Json,
+};
 
 use crate::{
-    error::{Aerr, Aresult},
+    error::{Aerr, AerrResult},
     state::ArcState,
 };
 
 pub async fn route(
     State(state): State<ArcState>,
-    Json(indto): Json<ManGetIndto>,
-) -> Aresult<Json<ManGetOutdto>> {
+    Query(command): Query<String>,
+) -> AerrResult<Json<ManGetOutdto>> {
     state
         .validators
-        .man
-        .sanity_check_man_get(&indto)
+        .man_stage_1
+        .sanity_check_man_get(&command)
         .map_err(|e| Aerr(e))?;
 
     let outdto = state
         .services
         .man
-        .generate_man_page(indto)
+        .generate_man_page(command)
         .await
         .map_err(|e| Aerr(e))?;
 

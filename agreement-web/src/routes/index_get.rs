@@ -2,13 +2,13 @@ use agreement_common::{error::Err, newer};
 use askama::Template;
 use axum::{http::header, response::Response};
 
-use crate::error::{Aerr, Aresult};
+use crate::error::{Aerr, AerrResult};
 
 #[derive(Template)]
 #[template(path = "index.html")]
 struct IndexTemplate;
 
-pub async fn route() -> Aresult<Response<String>> {
+pub async fn route() -> AerrResult<Response<String>> {
     let value = IndexTemplate
         .render()
         .map_err(|e| Aerr(newer!(e, Err::internal("SSR failure"))))?;

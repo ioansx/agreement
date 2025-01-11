@@ -8,7 +8,7 @@ use axum::{
 };
 use tracing::{error, warn};
 
-pub type Aresult<T> = Result<T, Aerr>;
+pub type AerrResult<T> = Result<T, Aerr>;
 
 #[derive(Debug)]
 pub struct Aerr(pub ErrWrap);

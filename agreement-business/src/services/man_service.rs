@@ -2,7 +2,7 @@ use agreement_common::{
     error::{Err, ErrResult},
     newer,
 };
-use agreement_models::{custom::DateTimeUtc, indto::ManGetIndto, outdto::ManGetOutdto};
+use agreement_models::{custom::DateTimeUtc, outdto::ManGetOutdto};
 
 pub struct ManService {}
 
@@ -11,7 +11,7 @@ impl ManService {
         Self {}
     }
 
-    pub async fn generate_man_page(&self, indto: ManGetIndto) -> ErrResult<ManGetOutdto> {
+    pub async fn generate_man_page(&self, command: String) -> ErrResult<ManGetOutdto> {
         let force_non_localized_man_pages = "-o";
         let pager_option = "-P";
         let pager_as_cat = "cat";
@@ -20,7 +20,7 @@ impl ManService {
                 force_non_localized_man_pages,
                 pager_option,
                 pager_as_cat,
-                &indto.command,
+                &command,
             ])
             .output()
             .await

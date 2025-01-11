@@ -5,7 +5,7 @@ use std::{
 
 use agreement_common::{error::Err, newer};
 use agreement_web::{
-    error::{Aerr, Aresult},
+    error::{Aerr, AerrResult},
     routes,
     state::AState,
 };
@@ -19,7 +19,7 @@ use tower_http::{
 use tracing::{error, info};
 
 #[tokio::main]
-async fn main() -> Aresult<()> {
+async fn main() -> AerrResult<()> {
     tracing_subscriber::fmt::init();
 
     let middleware = ServiceBuilder::new().layer(
