@@ -2,13 +2,13 @@ use agreement_models::{
     indto::CreateThingIndto,
     outdto::{CreateThingOutdto, ErrorOutdto},
 };
-use unladeapi::{HttpUnlader, Unlader};
+use unlader::{HttpUnlader, Unlader};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
 #[derive(Clone, Debug)]
 pub struct AgreementClient {
-    ac: Unlader,
+    unlader: Unlader,
 }
 
 #[wasm_bindgen]
@@ -16,7 +16,7 @@ impl AgreementClient {
     #[wasm_bindgen(constructor)]
     pub fn new(addr: String) -> AgreementClient {
         Self {
-            ac: Unlader::new(addr),
+            unlader: Unlader::new(addr),
         }
     }
 
@@ -24,6 +24,6 @@ impl AgreementClient {
         &self,
         indto: CreateThingIndto,
     ) -> Result<CreateThingOutdto, ErrorOutdto> {
-        self.ac.post("things", indto).await?
+        self.unlader.post("things", indto).await?
     }
 }

@@ -8,7 +8,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 agreement-models = { path = "../agreement-models" }
-unladeapi = { path = "../unladeapi" }
+unlader = { path = "../unlader" }
 
 getrandom = { version = "0.2", features = ["js"] }
 wasm-bindgen.workspace = true
