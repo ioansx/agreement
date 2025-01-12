@@ -39,6 +39,10 @@ impl Unlader {
         serde_wasm_bindgen::from_value(value).map_err(|e| UnladeError { msg: e.to_string() })
     }
 
+    pub fn console_log_1(&self, value: &str) {
+        web_sys::console::log_1(&value.into());
+    }
+
     pub async fn json_get(
         &self,
         path: &str,

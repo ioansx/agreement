@@ -24,13 +24,16 @@ pub fn map_js_value_to_error_type(value: JsValue) -> UnladeError {
                 .dyn_ref::<js_sys::Array>()
                 .expect("Each entry in Object::entries is an array.");
 
-            if arr
+            let key = arr
                 .get(0)
                 .as_string()
-                .expect("The first value in an entry is always a string.")
-                == MESSAGE
-            {
-                message = Some(arr.get(1).as_string().unwrap());
+                .expect("The first value in an entry is always a string.");
+            if key == MESSAGE {
+                let value = arr
+                    .get(1)
+                    .as_string()
+                    .expect("There always exists a value for a key.");
+                message = Some(value);
             }
         }
 

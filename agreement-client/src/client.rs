@@ -40,6 +40,7 @@ impl AgreementClient {
         &self,
         indto: CreateThingIndto,
     ) -> Result<CreateThingOutdto, ErrorOutdto> {
-        self.unlader.post("things", indto).await?
+        let outdto = self.unlader.post("things", indto).await?;
+        Ok(outdto)
     }
 }
