@@ -1,29 +1,15 @@
-mod man_validator_stage_1;
-mod man_validator_stage_2;
+mod man_validator;
 
-pub use man_validator_stage_1::ManValidatorStage1;
-pub use man_validator_stage_2::ManValidatorStage2;
+pub use man_validator::ManValidator;
 
-pub struct ValidatorsStage1 {
-    pub man: ManValidatorStage1,
+pub struct Validators {
+    pub man: ManValidator,
 }
 
-impl ValidatorsStage1 {
+impl Validators {
     pub fn new() -> Self {
         Self {
-            man: ManValidatorStage1::new(),
-        }
-    }
-}
-
-pub struct ValidatorsStage2 {
-    pub man: ManValidatorStage2,
-}
-
-impl ValidatorsStage2 {
-    pub fn new() -> Self {
-        Self {
-            man: ManValidatorStage2::new(),
+            man: ManValidator::new(),
         }
     }
 }

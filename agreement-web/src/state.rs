@@ -1,19 +1,22 @@
 use std::sync::Arc;
 
-use agreement_business::{services::Services, validators::ValidatorsStage1};
+use agreement_business::{services::Services, validators::Validators};
+use agreement_validation0::Validation0;
 
 pub type ArcState = Arc<AState>;
 
 pub struct AState {
     pub services: Services,
-    pub validators: ValidatorsStage1,
+    pub validators: Validators,
+    pub validation0: Validation0,
 }
 
 impl AState {
     pub fn new() -> Self {
         Self {
             services: Services::new(),
-            validators: ValidatorsStage1::new(),
+            validators: Validators::new(),
+            validation0: Validation0::new(),
         }
     }
 }

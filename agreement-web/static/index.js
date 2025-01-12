@@ -2,7 +2,7 @@ import init, {
   AgreementClient,
   CreateThingIndto,
   CreateThingOutdto,
-} from "/static/agreement_client.js";
+} from "./agreement_client.js";
 
 await init();
 

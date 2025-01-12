@@ -4,6 +4,7 @@ members = [
     "agreement-client",
     "agreement-common",
     "agreement-models",
+    "agreement-validation0",
     "agreement-web",
     "unlader",
 ]

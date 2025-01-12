@@ -7,8 +7,8 @@ edition.workspace = true
 crate-type = ["cdylib"]
 
 [dependencies]
-agreement-business = { path = "../agreement-business" }
 agreement-models = { path = "../agreement-models" }
+agreement-validation0 = { path = "../agreement-validation0" }
 unlader = { path = "../unlader" }
 
 wasm-bindgen.workspace = true

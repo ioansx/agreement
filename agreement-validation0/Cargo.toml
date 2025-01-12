@@ -1,0 +1,8 @@
+[package]
+name = "agreement-validation0"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+agreement-common = { path = "../agreement-common" }
+agreement-models = { path = "../agreement-models" }

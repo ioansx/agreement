@@ -14,9 +14,9 @@ pub async fn route(
     Query(command): Query<String>,
 ) -> AerrResult<Json<ManGetOutdto>> {
     state
-        .validators
+        .validation0
         .man
-        .sanity_check_man_get(&command)
+        .validate_man_get(&command)
         .map_err(|e| Aerr(e))?;
 
     let outdto = state

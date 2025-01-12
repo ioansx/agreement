@@ -32,8 +32,8 @@ dependencies = [
 name = "agreement-client"
 version = "0.1.0"
 dependencies = [
- "agreement-business",
  "agreement-models",
+ "agreement-validation0",
  "getrandom",
  "unlader",
  "wasm-bindgen",
@@ -59,12 +59,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "agreement-validation0"
+version = "0.1.0"
+dependencies = [
+ "agreement-common",
+ "agreement-models",
+]
+
+[[package]]
 name = "agreement-web"
 version = "0.1.0"
 dependencies = [
  "agreement-business",
  "agreement-common",
  "agreement-models",
+ "agreement-validation0",
  "askama",
  "axum",
  "axum-extra",
