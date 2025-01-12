@@ -7,7 +7,7 @@ impl ManValidatorStage1 {
         Self {}
     }
 
-    pub fn sanity_check_man_get(&self, command: &str) -> ErrResult<()> {
+    pub fn sanity_check_man_get(&self, _command: &str) -> ErrResult<()> {
         todo!()
     }
 }

@@ -15,7 +15,7 @@ pub async fn route(
 ) -> AerrResult<Json<ManGetOutdto>> {
     state
         .validators
-        .man_stage_1
+        .man
         .sanity_check_man_get(&command)
         .map_err(|e| Aerr(e))?;
 
