@@ -5,17 +5,17 @@ use axum::{http::header, response::Response};
 use crate::error::{Aerr, AerrResult};
 
 #[derive(Template)]
-#[template(path = "index.html")]
-struct IndexTemplate;
+#[template(path = "page_man.html")]
+struct PageTemplate;
 
 pub async fn route() -> AerrResult<Response<String>> {
-    let value = IndexTemplate
+    let value = PageTemplate
         .render()
         .map_err(|e| Aerr(newer!(e, Err::internal("SSR failure"))))?;
     Response::builder()
         .header(
             header::CONTENT_TYPE,
-            header::HeaderValue::from_static(IndexTemplate::MIME_TYPE),
+            header::HeaderValue::from_static(PageTemplate::MIME_TYPE),
         )
         .body(value)
         .map_err(|e| Aerr(newer!(e, Err::internal("error creating the response"))))

@@ -30,17 +30,19 @@ impl AgreementClient {
 
         let value = self
             .unlader
-            .json_get("man", &[("command", &command)])
+            .json_get("api/v1/man", &[("command", &command)])
             .await?;
 
-        self.unlader.from_js_value(value)?
+        let outdto: ManGetOutdto = self.unlader.from_js_value(value)?;
+
+        Ok(outdto)
     }
 
     pub async fn create_thing(
         &self,
         indto: CreateThingIndto,
     ) -> Result<CreateThingOutdto, ErrorOutdto> {
-        let outdto = self.unlader.post("things", indto).await?;
+        let outdto = self.unlader.post("/api/v1/things", indto).await?;
         Ok(outdto)
     }
 }

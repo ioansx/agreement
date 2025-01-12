@@ -1,15 +1,12 @@
 <!doctype html>
-<html lang="en" class="-no-dark-theme">
+<html lang="en" data-theme="light">
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/missing.css@1.1.3" />
-    <link rel="stylesheet" href="/static/styles.css" />
-    <link
-      rel="modulepreload"
-      href="/static/agreement_client.js"
-      type="module"
-    />
-    <script src="/static/index.js" type="module"></script>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="static/css/pico.classless.green.min.css" />
+    <link rel="stylesheet" href="static/css/styles.css" />
+    <script src="static/js/index.js" type="module"></script>
     <meta
       name="description"
       content="WASM API client with bells and whistles."
@@ -18,10 +15,21 @@
   </head>
 
   <body>
-    <header class="navbar justify-content:space-evenly" data-overflow-nav>
-      <a class="base__logo" href="/">
-        <h1>Agreement</h1>
-      </a>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <strong>
+              <a href="/">We Are in Agreement</a>
+            </strong>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="/about">About</a>
+          </li>
+        </ul>
+      </nav>
     </header>
     <main>
       {% block content %}
@@ -29,7 +37,7 @@
       {% endblock %}
     </main>
     <footer>
-      <a href="https://github.com/ioansx/agreement">GITHUB</a>
+      <a href="https://github.com/ioansx/agreement">GitHub</a>
     </footer>
   </body>
 </html>

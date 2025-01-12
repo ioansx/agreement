@@ -9,6 +9,7 @@ impl ManValidation0 {
     }
 
     pub fn validate_man_get(&self, _command: &str) -> ErrResult<()> {
-        todo!()
+        // TODO: validation
+        Ok(())
     }
 }

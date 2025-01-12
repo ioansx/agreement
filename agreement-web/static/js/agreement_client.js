@@ -204,11 +204,11 @@ function _assertClass(instance, klass) {
     }
 }
 function __wbg_adapter_48(arg0, arg1, arg2) {
-    wasm.closure48_externref_shim(arg0, arg1, arg2);
+    wasm.closure37_externref_shim(arg0, arg1, arg2);
 }
 
 function __wbg_adapter_157(arg0, arg1, arg2, arg3) {
-    wasm.closure86_externref_shim(arg0, arg1, arg2, arg3);
+    wasm.closure73_externref_shim(arg0, arg1, arg2, arg3);
 }
 
 const __wbindgen_enum_RequestMode = ["same-origin", "no-cors", "cors", "navigate"];
@@ -957,8 +957,8 @@ function __wbg_get_imports() {
         const ret = false;
         return ret;
     };
-    imports.wbg.__wbindgen_closure_wrapper386 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 49, __wbg_adapter_48);
+    imports.wbg.__wbindgen_closure_wrapper362 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 38, __wbg_adapter_48);
         return ret;
     };
     imports.wbg.__wbindgen_debug_string = function(arg0, arg1) {
