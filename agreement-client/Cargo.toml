@@ -9,7 +9,7 @@ crate-type = ["cdylib"]
 [dependencies]
 agreement-models = { path = "../agreement-models" }
 agreement-validation0 = { path = "../agreement-validation0" }
-unlader = { path = "../unlader" }
+unlade = { path = "../unlade" }
 
 wasm-bindgen.workspace = true
 

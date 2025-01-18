@@ -3,7 +3,7 @@ use agreement_models::{
     outdto::{CreateThingOutdto, ErrorOutdto, ManGetOutdto},
 };
 use agreement_validation0::Validation0;
-use unlader::{HttpUnlader, Unlader};
+use unlade::{HttpUnlader, Unlader};
 use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen(getter_with_clone)]

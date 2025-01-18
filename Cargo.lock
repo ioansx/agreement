@@ -35,7 +35,7 @@ dependencies = [
  "agreement-models",
  "agreement-validation0",
  "getrandom",
- "unlader",
+ "unlade",
  "wasm-bindgen",
  "wasm-bindgen-futures",
 ]
@@ -54,7 +54,7 @@ dependencies = [
  "agreement-common",
  "chrono",
  "serde",
- "unlader",
+ "unlade",
  "wasm-bindgen",
 ]
 
@@ -1097,7 +1097,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "adb9e6ca4f869e1180728b7950e35922a7fc6397f7b641499e8f3ef06e50dc83"
 
 [[package]]
-name = "unlader"
+name = "unlade"
 version = "0.1.0"
 dependencies = [
  "js-sys",
