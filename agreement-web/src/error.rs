@@ -25,6 +25,12 @@ impl std::error::Error for Aerr {
     }
 }
 
+impl From<ErrWrap> for Aerr {
+    fn from(value: ErrWrap) -> Self {
+        Self(value)
+    }
+}
+
 impl IntoResponse for Aerr {
     fn into_response(self) -> axum::response::Response {
         let Self(err) = self;

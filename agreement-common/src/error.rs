@@ -1,4 +1,4 @@
-use std::{backtrace::Backtrace, fmt::Display};
+use std::fmt::Display;
 
 pub type ErrResult<T> = Result<T, ErrWrap>;
 
@@ -6,7 +6,6 @@ pub type ErrResult<T> = Result<T, ErrWrap>;
 pub struct ErrWrap {
     pub knd: Err,
     pub src: Option<Box<dyn std::error::Error>>,
-    pub bkt: Backtrace,
 }
 
 impl ErrWrap {
@@ -39,14 +38,12 @@ macro_rules! newer {
         $crate::error::ErrWrap {
             knd: $knd,
             src: None,
-            bkt: std::backtrace::Backtrace::force_capture(),
         }
     }};
     ( $src:expr, $knd:expr ) => {{
         $crate::error::ErrWrap {
             knd: $knd,
             src: Some(Box::new($src)),
-            bkt: std::backtrace::Backtrace::force_capture(),
         }
     }};
 }
