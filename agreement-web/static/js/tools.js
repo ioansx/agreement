@@ -5,4 +5,14 @@ function safeSetOnclickHandler(id, handler) {
   }
 }
 
-export { safeSetOnclickHandler };
+function safeSetOnsubmitHandler(name, handler) {
+  const el = document.forms[name];
+  if (!el) {
+    throw new Error(`Form "${name} not found.`);
+  }
+
+  el.onsubmit = handler;
+}
+
+
+export { safeSetOnclickHandler, safeSetOnsubmitHandler };

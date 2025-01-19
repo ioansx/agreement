@@ -1,20 +1,21 @@
-import { safeSetOnclickHandler } from "./tools.js";
+import { safeSetOnsubmitHandler } from "./tools.js";
 
-const BUTTON_FETCH = "man-btn-fetch";
-const INPUT_COMMAND = "man-input-command";
-const ARTICLE_PAGE = "man-article-page";
+const FORM = "page_man__form";
+const OUTPUT = "page_man__output";
 
 class PageMan {
   constructor(client) {
     this.client = client;
 
-    safeSetOnclickHandler(BUTTON_FETCH, this.fetchManPage);
+    safeSetOnsubmitHandler(FORM, this.fetchManPage);
   }
 
-  fetchManPage = async () => {
-    const command = document.getElementById(INPUT_COMMAND).value;
+  fetchManPage = async (event) => {
+    event.preventDefault();
+
+    const command = document.forms[FORM].elements["command"].value;
     const outdto = await this.client.get_man_page(command);
-    const article = document.getElementById(ARTICLE_PAGE);
+    const article = document.getElementById(OUTPUT);
     const articleHeader = article.children.item(0);
     articleHeader.textContent = command;
     const articlePre = article.children.item(1);

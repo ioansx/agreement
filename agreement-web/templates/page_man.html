@@ -3,13 +3,25 @@
 {% block content %}
 <h1>Man</h1>
 
-<section>
-  <label for="man-input-command">Command</label>
-  <input id="man-input-command">
-  <button id="man-btn-fetch">Fetch</button>
-<section>
+<p>
+Inspect man pages for unix-like commands such as:
+</p>
+<ul>
+  <li> man </li>
+  <li> ls </li>
+  <li> grep </li>
+  <li> ... </li>
+</ul>
 
-<article id="man-article-page">
+<form name="page_man__form">
+  <label>
+    Command:
+    <input name="command" required>
+  </label>
+  <button>Fetch</button>
+</form>
+
+<article id="page_man__output">
   <header></header>
   <pre></pre>
 </article>
