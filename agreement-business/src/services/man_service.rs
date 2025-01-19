@@ -12,26 +12,21 @@ impl ManService {
     }
 
     pub async fn generate_man_page(&self, command: String) -> ErrResult<ManGetOutdto> {
-        let force_non_localized_man_pages = "-o";
         let pager_option = "-P";
         let pager_as_cat = "cat";
         let output = tokio::process::Command::new("man")
-            .args([
-                force_non_localized_man_pages,
-                pager_option,
-                pager_as_cat,
-                &command,
-            ])
+            .args([pager_option, pager_as_cat, &command])
             .output()
             .await
             .map_err(|e| newer!(e, Err::internal("unable to generate man page")))?;
 
         if !output.status.success() {
-            return Err(newer!(Err::internal("unable to generate man page")));
+            let source = newer!(Err::internal(String::from_utf8_lossy(&output.stderr)));
+            return Err(newer!(source, Err::internal("unable to generate man page")));
         }
 
         let output_str = String::from_utf8(output.stdout)
-            .map_err(|e| newer!(e, Err::internal("invalid man page output")))?;
+            .map_err(|e| newer!(e, Err::internal("invalid man page stdout output")))?;
 
         Ok(ManGetOutdto {
             generated_at: DateTimeUtc::now(),
