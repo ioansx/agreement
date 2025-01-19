@@ -16,6 +16,7 @@ impl ManService {
         let pager_as_cat = "cat";
         let output = tokio::process::Command::new("man")
             .args([pager_option, pager_as_cat, &command])
+            .env("MANWIDTH", "80")
             .output()
             .await
             .map_err(|e| newer!(e, Err::internal("unable to generate man page")))?;
@@ -25,12 +26,12 @@ impl ManService {
             return Err(newer!(source, Err::internal("unable to generate man page")));
         }
 
-        let output_str = String::from_utf8(output.stdout)
+        let stdout = String::from_utf8(output.stdout)
             .map_err(|e| newer!(e, Err::internal("invalid man page stdout output")))?;
 
         Ok(ManGetOutdto {
             generated_at: DateTimeUtc::now(),
-            output: output_str,
+            output: stdout,
         })
     }
 }
