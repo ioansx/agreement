@@ -13,7 +13,11 @@ wasm-deploy: wasm-build
 wasm-build:
 	wasm-pack build ${client_dir} --${profile} --out-dir pkg --target web
 
+.PHONY: wasm-clean
+wasm-clean:
+	rm -rf ${client_dir}/pkg/
+
 .PHONY: clean
-clean:
+clean: wasm-clean
 	cargo clean
 	rm -rf ${client_dir}/pkg/
