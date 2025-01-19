@@ -16,7 +16,7 @@ impl ManService {
         let pager_option = "-P";
         let pager_as_cat = "cat";
         let output = tokio::process::Command::new("man")
-            .args(&[
+            .args([
                 force_non_localized_man_pages,
                 pager_option,
                 pager_as_cat,

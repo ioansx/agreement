@@ -29,7 +29,7 @@ impl Display for ErrWrap {
 
 impl std::error::Error for ErrWrap {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        self.src.as_ref().map(|v| &**v)
+        self.src.as_deref()
     }
 }
 

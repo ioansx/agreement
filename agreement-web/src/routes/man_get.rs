@@ -23,14 +23,14 @@ pub async fn route(
         .validation0
         .man
         .validate_man_get(&query.command)
-        .map_err(|e| Aerr(e))?;
+        .map_err(Aerr)?;
 
     let outdto = state
         .services
         .man
         .generate_man_page(query.command)
         .await
-        .map_err(|e| Aerr(e))?;
+        .map_err(Aerr)?;
 
     Ok(Json(outdto))
 }

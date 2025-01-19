@@ -21,7 +21,7 @@ impl Display for Aerr {
 
 impl std::error::Error for Aerr {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        self.0.src.as_ref().map(|v| &**v)
+        self.0.src.as_deref()
     }
 }
 

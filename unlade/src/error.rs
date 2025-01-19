@@ -19,7 +19,7 @@ pub fn map_js_value_to_error_type(value: JsValue) -> UnladeError {
     let msg: String = if let Some(x) = value.dyn_ref::<js_sys::Object>() {
         const MESSAGE: &str = "message";
         let mut message = None;
-        for arr in js_sys::Object::entries(&x) {
+        for arr in js_sys::Object::entries(x) {
             let arr = arr
                 .dyn_ref::<js_sys::Array>()
                 .expect("Each entry in Object::entries is an array.");
