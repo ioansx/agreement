@@ -7,11 +7,9 @@ function safeSetOnclickHandler(id, handler) {
 
 function safeSetOnsubmitHandler(name, handler) {
   const el = document.forms[name];
-  if (!el) {
-    throw new Error(`Form "${name} not found.`);
+  if (el) {
+    el.onsubmit = handler;
   }
-
-  el.onsubmit = handler;
 }
 
 

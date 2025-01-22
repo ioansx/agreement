@@ -1,5 +1,6 @@
 use std::{
     net::{Ipv4Addr, SocketAddr},
+    path::PathBuf,
     sync::Arc,
 };
 
@@ -12,7 +13,7 @@ use agreement_web::{
 use axum::Router;
 use tower::ServiceBuilder;
 use tower_http::{
-    services::ServeDir,
+    services::{ServeDir, ServeFile},
     trace::{DefaultOnResponse, TraceLayer},
     LatencyUnit,
 };
@@ -31,6 +32,10 @@ async fn main() -> AerrResult<()> {
 
     let app = Router::new()
         .merge(routes::router())
+        .nest_service(
+            "/favicon.ico",
+            ServeFile::new(PathBuf::from("static/favicon.ico")),
+        )
         .nest_service("/static", ServeDir::new("static"))
         .layer(middleware)
         .with_state(Arc::new(state));

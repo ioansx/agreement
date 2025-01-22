@@ -6,6 +6,7 @@ members = [
     "agreement-models",
     "agreement-validation0",
     "agreement-web",
+    "htmx",
     "unlade",
 ]
 resolver = "2"
