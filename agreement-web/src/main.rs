@@ -48,7 +48,7 @@ async fn main() -> AerrResult<()> {
     let addr = SocketAddr::from((Ipv4Addr::UNSPECIFIED, port));
     let listener = tokio::net::TcpListener::bind(&addr)
         .await
-        .map_err(|e| Aerr(newer!(e, Err::internal("unable to bind address"))))?;
+        .map_err(|e| Aerr(newer!(e, Err::internal("Unable to bind address."))))?;
 
     info!("Listening at {}", addr);
     if let Err(e) = axum::serve(listener, app).await {

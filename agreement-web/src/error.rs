@@ -44,7 +44,7 @@ impl IntoResponse for Aerr {
             id: agreement_common::agreement_id(),
             msg: err.knd.to_string(),
         };
-        let body_ser = serde_json::to_vec(&body).expect("body can always be serialized");
+        let body_ser = serde_json::to_vec(&body).expect("Body can always be serialized.");
 
         if let Err::Internal(_) = err.knd {
             error!(id = %body.id, msg = %body.msg, chain = ?err.chain());
@@ -59,6 +59,6 @@ impl IntoResponse for Aerr {
                 header::HeaderValue::from_static("application/json"),
             )
             .body(body_ser.into())
-            .expect("error response can always be built")
+            .expect("Error response can always be built.")
     }
 }
