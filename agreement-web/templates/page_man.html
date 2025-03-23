@@ -13,16 +13,32 @@ Inspect man pages for unix-like commands such as:
   <li> ... </li>
 </ul>
 
-<form name="page_man__form">
-  <label>
-    Command:
-    <input name="command" required>
-  </label>
-  <button>Fetch</button>
-</form>
+<section x-data="{ pageInput: '', pageOutput: '' }">
+  <script>
+    async function fetchPage($data) {
+      try {
+        const resp = await clientele.manGet($data.pageInput).then(x => x.json());
+        $data.pageOutput = resp.dat.output;
+      } catch (e) {
+        const resp = JSON.parse(e);
+        alert(resp.err);
+      }
+    }
+  </script>
 
-<article id="page_man__output">
-  <header></header>
-  <pre></pre>
-</article>
+  <form>
+    <label>
+      Page:
+      <input type="text" x-model=pageInput required>
+    </label>
+    <button @click.prevent="await fetchPage($data)">Fetch</button>
+  </form>
+
+  <br>
+
+  <article>
+    <header></header>
+    <pre x-html="pageOutput"></pre>
+  </article>
+</section>
 {% endblock %}
