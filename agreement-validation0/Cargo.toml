@@ -4,5 +4,5 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-agreement-common = { path = "../agreement-common" }
+agreement-error = { path = "../agreement-error" }
 agreement-models = { path = "../agreement-models" }

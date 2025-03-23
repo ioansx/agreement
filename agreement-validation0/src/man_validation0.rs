@@ -1,14 +1,10 @@
-use agreement_common::error::ErrResult;
+use agreement_error::Resultx;
 
 #[derive(Clone, Debug)]
-pub struct ManValidation0 {}
+pub struct ManValidation0;
 
 impl ManValidation0 {
-    pub fn new() -> Self {
-        Self {}
-    }
-
-    pub fn validate_man_get(&self, _command: &str) -> ErrResult<()> {
+    pub fn validate_man_get(&self, _command: &str) -> Resultx<()> {
         // TODO: validation
         Ok(())
     }

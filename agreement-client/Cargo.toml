@@ -12,6 +12,6 @@ agreement-validation0 = { path = "../agreement-validation0" }
 unlade = { path = "../unlade" }
 
 wasm-bindgen.workspace = true
+wasm-bindgen-futures = { workspace = true }
 
-getrandom = { version = "0.2", features = ["js"] }
-wasm-bindgen-futures = "0.4.49"
+# getrandom = { version = "0.2", features = ["js"] }

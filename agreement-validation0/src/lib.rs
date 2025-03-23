@@ -10,7 +10,7 @@ pub struct Validation0 {
 impl Validation0 {
     pub fn new() -> Self {
         Self {
-            man: ManValidation0::new(),
+            man: ManValidation0,
         }
     }
 }

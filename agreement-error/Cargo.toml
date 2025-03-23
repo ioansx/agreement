@@ -1,13 +1,12 @@
 [package]
-name = "agreement-business"
+name = "agreement-error"
 version.workspace = true
 edition.workspace = true
 
 [dependencies]
 agreement-common = { path = "../agreement-common" }
-agreement-error = { path = "../agreement-error" }
 agreement-models = { path = "../agreement-models" }
 
-chrono.workspace = true
-tokio.workspace = true
+axum.workspace = true
+serde_json.workspace = true
 tracing.workspace = true
