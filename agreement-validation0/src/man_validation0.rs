@@ -4,7 +4,7 @@ use agreement_error::Resultx;
 pub struct ManValidation0;
 
 impl ManValidation0 {
-    pub fn validate_man_get(&self, _command: &str) -> Resultx<()> {
+    pub fn validate_man_get(&self, _page: &str) -> Resultx<()> {
         // TODO: validation
         Ok(())
     }

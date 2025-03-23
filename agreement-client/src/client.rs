@@ -25,16 +25,15 @@ impl AgreementClient {
         }
     }
 
-    pub async fn get_man_page(&self, command: String) -> Result<ManGetOutdto, ErrorOutdto> {
-        self.validation0.man.validate_man_get(&command)?;
+    pub async fn get_man_page(&self, page: String) -> Result<ManGetOutdto, ErrorOutdto> {
+        self.validation0.man.validate_man_get(&page)?;
 
         let value = self
             .unlader
-            .json_get("api/v1/man", &[("command", &command)])
+            .json_get("api/v1/man", &[("page", &page)])
             .await?;
 
         let outdto: ManGetOutdto = self.unlader.from_js_value(value)?;
-
         Ok(outdto)
     }
 

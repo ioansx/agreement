@@ -6,6 +6,7 @@ pub type Resultx<T> = Result<T, Errx>;
 
 #[derive(Debug)]
 pub struct Errx {
+    pub id: String,
     pub src: Option<Box<dyn Error>>,
     pub bkt: Option<Backtrace>,
     pub knd: Kindx,
@@ -13,23 +14,27 @@ pub struct Errx {
 
 impl Errx {
     pub fn new(src: Option<Box<dyn Error>>, knd: Kindx) -> Self {
+        let id = agreement_common::agreement_id();
         match src {
             Some(src) => match src.downcast::<Errx>() {
                 Ok(mut errx) => {
                     let bkt = errx.bkt.take();
                     Self {
+                        id,
                         src: Some(errx),
                         bkt,
                         knd,
                     }
                 }
                 Err(err) => Self {
+                    id,
                     src: Some(err),
                     bkt: Some(Backtrace::force_capture()),
                     knd,
                 },
             },
             None => Self {
+                id,
                 src: None,
                 bkt: Some(Backtrace::force_capture()),
                 knd,
@@ -78,26 +83,28 @@ impl Error for Errx {
 
 impl axum::response::IntoResponse for Errx {
     fn into_response(self) -> axum::response::Response {
-        let status_code = match self.knd {
+        let chain = self.chain();
+        let Self { id, bkt, knd, .. } = self;
+
+        let status_code = match knd {
             Kindx::NotFound(_) => axum::http::StatusCode::NOT_FOUND,
             Kindx::Internal(_) => axum::http::StatusCode::INTERNAL_SERVER_ERROR,
         };
 
         let body = ErrorOutdto {
-            id: agreement_common::agreement_id(),
-            msg: self.knd.to_string(),
+            id,
+            msg: knd.to_string(),
         };
         let body_ser = serde_json::to_vec(&body).expect("error body should be serializable");
 
-        let bkt = self
-            .bkt
+        let bkt = bkt
             .as_ref()
             .map(|x| x.to_string())
             .unwrap_or("".to_string());
-        if let Kindx::Internal(_) = self.knd {
-            tracing::error!(id = %body.id, msg = %body.msg, chain = ?self.chain(), bkt = %bkt);
+        if let Kindx::Internal(_) = knd {
+            tracing::error!(id = %body.id, msg = %body.msg, chain = ?chain, bkt = %bkt);
         } else {
-            tracing::warn!(id = %body.id, msg = %body.msg, chain = ?self.chain(), bkt = %bkt);
+            tracing::warn!(id = %body.id, msg = %body.msg, chain = ?chain, bkt = %bkt);
         };
 
         axum::http::Response::builder()
@@ -108,6 +115,15 @@ impl axum::response::IntoResponse for Errx {
             )
             .body(body_ser.into())
             .expect("error response should always be built")
+    }
+}
+
+impl From<Errx> for ErrorOutdto {
+    fn from(value: Errx) -> Self {
+        ErrorOutdto {
+            id: agreement_common::agreement_id(),
+            msg: value.knd.to_string(),
+        }
     }
 }
 
