@@ -5,6 +5,7 @@ use wasm_bindgen::{JsCast, JsValue};
 #[derive(Clone, Debug)]
 pub struct UnladeError {
     pub msg: String,
+    pub ts: u64,
 }
 
 impl Display for UnladeError {
@@ -14,6 +15,19 @@ impl Display for UnladeError {
 }
 
 impl Error for UnladeError {}
+
+impl UnladeError {
+    pub fn new(msg: impl Into<String>) -> Self {
+        let ts = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .expect("time should be ordered")
+            .as_millis() as u64;
+        Self {
+            msg: msg.into(),
+            ts,
+        }
+    }
+}
 
 pub fn map_js_value_to_error_type(value: JsValue) -> UnladeError {
     let msg: String = if let Some(x) = value.dyn_ref::<js_sys::Object>() {
@@ -52,5 +66,5 @@ pub fn map_js_value_to_error_type(value: JsValue) -> UnladeError {
             .into()
     };
 
-    UnladeError { msg }
+    UnladeError::new(msg)
 }

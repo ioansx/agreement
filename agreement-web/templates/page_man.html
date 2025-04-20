@@ -17,11 +17,11 @@ Inspect man pages for unix-like commands such as:
   <script>
     async function fetchPage($data) {
       try {
-        const resp = await clientele.manGet($data.pageInput).then(x => x.json());
-        $data.pageOutput = resp.dat.output;
+        const resp = await window.agreement.get_man_page($data.pageInput);
+        $data.pageOutput = resp.output;
       } catch (e) {
-        const resp = JSON.parse(e);
-        alert(resp.err);
+        console.error(e);
+        alert(e.msg);
       }
     }
   </script>

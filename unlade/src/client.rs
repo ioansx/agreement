@@ -1,11 +1,11 @@
 use std::future::Future;
 
-use serde::{de::DeserializeOwned, Serialize};
+use serde::{Serialize, de::DeserializeOwned};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::JsFuture;
 use web_sys::{Headers, Request, RequestInit, RequestMode, Response, UrlSearchParams};
 
-use crate::error::{map_js_value_to_error_type, UnladeError};
+use crate::error::{UnladeError, map_js_value_to_error_type};
 
 const HEADERS_FOR_JSON_REQUEST: &[(&str, &str)] = &[
     ("Content-Type", "application/json"),
@@ -36,7 +36,7 @@ impl Unlader {
     // }
 
     pub fn from_js_value<T: DeserializeOwned>(&self, value: JsValue) -> Result<T, UnladeError> {
-        serde_wasm_bindgen::from_value(value).map_err(|e| UnladeError { msg: e.to_string() })
+        serde_wasm_bindgen::from_value(value).map_err(|e| UnladeError::new(e.to_string()))
     }
 
     pub fn console_log_1(&self, value: &str) {
@@ -103,7 +103,7 @@ impl HttpUnlader for Unlader {
     ) -> impl Future<Output = Result<O, UnladeError>> {
         // TODO: This is dirty, clean it up.
         let body = serde_json::to_string(&input)
-            .map_err(|e| UnladeError { msg: e.to_string() })
+            .map_err(|e| UnladeError::new(e.to_string()))
             .unwrap();
 
         async move {
@@ -141,7 +141,7 @@ impl HttpUnlader for Unlader {
                 .map_err(map_js_value_to_error_type)?;
 
             let outdto = serde_wasm_bindgen::from_value(json)
-                .map_err(|e| UnladeError { msg: e.to_string() })?;
+                .map_err(|e| UnladeError::new(e.to_string()))?;
 
             Ok(outdto)
         }

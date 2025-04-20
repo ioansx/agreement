@@ -4,9 +4,3 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-agreement-common = { path = "../agreement-common" }
-agreement-models = { path = "../agreement-models" }
-
-axum.workspace = true
-serde_json.workspace = true
-tracing.workspace = true

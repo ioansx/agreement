@@ -1,4 +1,3 @@
-use agreement_error::Resultx;
 use agreement_models::outdto::ManGetOutdto;
 use axum::{
     Json,
@@ -6,20 +5,20 @@ use axum::{
 };
 use serde::Deserialize;
 
-use crate::state::ArcState;
+use crate::{error::WebResultx, state::ArcState};
 
 #[derive(Deserialize)]
 pub struct ManGetQueryParams {
-    pub command: String,
+    pub page: String,
 }
 
 pub async fn route(
     State(state): State<ArcState>,
     Query(query): Query<ManGetQueryParams>,
-) -> Resultx<Json<ManGetOutdto>> {
-    state.validation0.man.validate_man_get(&query.command)?;
+) -> WebResultx<Json<ManGetOutdto>> {
+    state.validation0.man.validate_man_get(&query.page)?;
 
-    let outdto = state.services.man.generate_man_page(query.command).await?;
+    let outdto = state.services.man.generate_man_page(query.page).await?;
 
     Ok(Json(outdto))
 }
